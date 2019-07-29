@@ -4,12 +4,16 @@ public class Board {
     // Starting array är en vektor som förblir den samma hela tiden så vi kan hålla koll på vilka värden som inte får rubbas.
     private Integer[] starting_array;
 
+    private boolean forward = true;
+
+    private Integer next_val;
     public Board() {
         this.array = new Integer[81];
         System.arraycopy(starting_array, 0, array, 0, 81);
     }
 
     public Board(Integer[] array) {
+        this.array = array;
         this.starting_array = array;
     }
 
@@ -20,10 +24,10 @@ public class Board {
     public Integer[] getArray(){
         return array;
     }
-
     public int get(int xpos, int ypos) {
         return get(xpos + (ypos * 9));
     }
+
 
 
     public void put(int index, int value) {
@@ -31,43 +35,59 @@ public class Board {
     }
 
     public boolean solve(int index, int startvalue) {
-        // Ifall siffran redan är ifylld
+        // Ifall siffran redan är ifylld: forward håller koll på om vi rör oss framåt eller bakåt
         if (starting_array[index] != 0){
-            return solve(index -1,array[index-1]);
+            if(forward) return solve(index +1,array[index+1]);
+            else return solve(index -1,array[index -1]);
         }
-        // Ifall ingen siffra funkar
-        for (int i = startvalue + 1; i < 10; i++) {
 
-            if (!checkCol(index, i)  || !checkRow(index, i) || !checkSquare(index, i)) {
-                if (index == 0) return false;
-                else return solve(index - 1, array[index - 1] + 1);
-            }
-        }
         // Ifall det finns en siffra som funkar
         for (int i = startvalue + 1; i < 10; i++) {
             if (checkCol(index, i) && checkRow(index, i) && checkSquare(index, i)) {
                 put(index, i);
                 if (index == 80) return true;
+                forward = true;
                 return solve(index + 1, 0);
             }
-
         }
+
+        // Ifall ingen siffra funkar
+        for (int i = startvalue + 1; i < 10; i++) {
+
+            if (!checkCol(index, i)  || !checkRow(index, i) || !checkSquare(index, i)) {
+                if (index == 0) return false;
+                else {
+                    put(index,-1);
+                    next_val = array[index];
+                    forward = true;
+                    return solve(index - 1, array[index - 1] + 1);
+                }
+            }
+        }
+
     return true;
 
     }
+    // Detta är ett försök till att förenkla solve senare, så att det bara blir ett anrop, och man får bort for-looparna från solve
+    public int insertLegal(int index, int startnumber){
+        for (int i = startnumber; i < 10; i++){
+            if (checkCol(index,i) && checkRow(index,i) && checkSquare(index,i)) return i;
+        }
+        return -1;
+    }
 
     // Returnerar false ifall inget nummer funkar
-    private boolean checkCol(int index, int number) {
+    public boolean checkCol(int index, int number) {
         int xpos = index % 8;
         int ypos = (int) Math.floor((index + 1) / 9);
         for (int i = 0; i < 9; i++) {
-            if (get(xpos, i) != number) return false;
+            if (get(xpos, i) == number) return false;
         }
         return true;
     }
 
     // Returnerar false ifall number finns i raden
-    private boolean checkRow(int index, int number) {
+    public boolean checkRow(int index, int number) {
         int xpos = index % 8;
         int ypos = (int) Math.floor((index + 1) / 9);
         for (int i = 0; i < 9; i++) {
@@ -77,7 +97,7 @@ public class Board {
     }
 
     // True ifall siffran är ok i 3*3 - rutan
-    private boolean checkSquare(int index, int number) {
+    public boolean checkSquare(int index, int number) {
         // 9 if-satser, en för varje område
         int xpos = index % 8;
         int ypos = (int) Math.floor((index + 1) / 9);
