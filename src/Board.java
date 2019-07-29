@@ -85,56 +85,56 @@ public class Board {
             return true;
         } else if (xpos < 3 &&  ypos < 6) {
             for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 3; j < 6; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos < 3 && ypos < 9) {
             for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 6; j < 9; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos >= 3 && xpos < 6 && ypos < 3) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 3; i < 6; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos >= 3 && xpos < 6 && ypos < 6) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 3; i < 6; i++) {
+                for (int j = 3; j < 6; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos >= 3 && xpos < 6 && ypos < 9) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 3; i < 6; i++) {
+                for (int j = 6; j < 9; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos >= 6 && ypos < 3) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 6; i < 9; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else if (xpos >= 6 && ypos < 6) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 6; i < 9; i++) {
+                for (int j = 3; j < 6; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
             return true;
         } else {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 6; i < 9; i++) {
+                for (int j = 6; j < 9; j++) {
                     if (get(i, j) == number) return false;
                 }
             }
