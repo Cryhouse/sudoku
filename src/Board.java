@@ -10,16 +10,21 @@ public class Board {
     }
 
     public Board(Integer[] array) {
-        this.array = array;
+        this.starting_array = array;
     }
 
     public int get(int index) {
         return array[index];
     }
 
-    public int get(int xpos, int ypos) {
-        return get(xpos + ypos * 9);
+    public Integer[] getArray(){
+        return array;
     }
+
+    public int get(int xpos, int ypos) {
+        return get(xpos + (ypos * 9));
+    }
+
 
     public void put(int index, int value) {
         array[index] = value;
@@ -141,6 +146,42 @@ public class Board {
             return true;
         }
 
+    }
+
+    // FOR TEST PURPOSES
+
+    public static Integer[] createArr (){
+        Integer[] temp_arr = new Integer[81];
+        for (int i = 0; i < 81; i++){
+            temp_arr[i] = 0;
+        }
+        temp_arr[1] = 5;
+        temp_arr[4] = 6;
+        temp_arr[16] = 4;
+        temp_arr[17] = 2;
+        temp_arr[18] = 8;
+        temp_arr[22] = 3;
+        temp_arr[28] = 3;
+        temp_arr[30] = 9;
+        temp_arr[33] = 7;
+        temp_arr[35] = 5;
+        temp_arr[37] = 1;
+        temp_arr[39] = 6;
+        temp_arr[41] = 8;
+        temp_arr[45] = 5;
+        temp_arr[50] = 4;
+        temp_arr[52] = 6;
+        temp_arr[57] = 7;
+        temp_arr[60] = 6;
+        temp_arr[63] = 3;
+        temp_arr[65] = 8;
+        temp_arr[68] = 2;
+        temp_arr[71] = 4;
+        temp_arr[72] = 4;
+        temp_arr[74] = 9;
+        temp_arr[79] = 3;
+        temp_arr[80] = 1;
+        return temp_arr;
     }
 }
 
